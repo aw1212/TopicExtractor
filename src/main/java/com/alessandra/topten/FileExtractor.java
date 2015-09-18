@@ -5,8 +5,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class FileExtractor implements Extractable {
@@ -27,13 +25,13 @@ public class FileExtractor implements Extractable {
             String line;
             while((line = br.readLine()) != null)
                 if (!line.isEmpty())
-                    parser.parseAndAddToList(line.trim());
+                    parser.cleanLineAndParse(line.trim());
         }
         catch (FileNotFoundException fnfe) {
             System.out.println(extractionFile + " not found");
-        } catch (IOException ex) {
-            Logger.getLogger(FileExtractor.class.getName()).
-                    log(Level.SEVERE, null, ex);
+        } 
+        catch (IOException ex) {
+            System.out.println("file issue causing IOException");
         }
     }
 

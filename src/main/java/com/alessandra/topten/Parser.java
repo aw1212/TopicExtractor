@@ -8,26 +8,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class Parser {
     
     @Autowired
-    private ExtractedText extractedText;
+    private ExtractedText extractedText = new ExtractedText();
     
-    public void parseAndAddToList(String line) {
-        StringTokenizer stringTokenizer = new StringTokenizer(line," ");
-        int num = stringTokenizer.countTokens();
-        System.out.println(line);
-        System.out.println(num);
-        addTokensToList(stringTokenizer);
-        //iterate through line
-        //parse method
-        //add to list method
+    private StringTokenizer stringTokenizer;
+     
+    public void cleanLineAndParse(String line) {
+        String punctuation = "\\p{Punct}(?=\\s|$)";
+        String cleanLine = line.replaceAll(punctuation, "");
+        cleanLine = cleanLine.replaceAll("[()-]", "");
+        cleanLine = cleanLine.replace("\"", "");
+        extractTokensFromLineAndAddToList(cleanLine);
     }
     
-    public void parse(String item) {
-        //use tokenizer
-    }
-    
-    public void addTokensToList(StringTokenizer token) {
-        //add to ExtractedTest list
-        
+    public void extractTokensFromLineAndAddToList(String cleanLine) {
+        String token = null;
+        stringTokenizer = new StringTokenizer(cleanLine," ");
+        while (stringTokenizer.hasMoreElements()) {
+            token = (String) stringTokenizer.nextElement();
+            extractedText.addTokenToList(token);
+        }     
     }
     
 }
