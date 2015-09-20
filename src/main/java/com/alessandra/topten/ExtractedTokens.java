@@ -8,7 +8,7 @@ import java.util.Map;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ExtractedText {
+public class ExtractedTokens {
     
     private List<String> extractedText = new ArrayList<>();
     

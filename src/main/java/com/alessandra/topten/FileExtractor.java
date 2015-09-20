@@ -25,7 +25,7 @@ public class FileExtractor implements Extractable {
             String line;
             while((line = br.readLine()) != null)
                 if (!line.isEmpty())
-                    parser.cleanLineAndParse(line.trim());
+                    parser.extractTokensFromLineAndAddToList(line.trim());
         }
         catch (FileNotFoundException fnfe) {
             System.out.println(extractionFile + " not found");
